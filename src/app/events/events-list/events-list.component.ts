@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventsListComponent implements OnInit {
 
-  event = {
+  event1 = {
     id:1,
     name : 'Angular Connect',
     date : '9/26/2036',
@@ -21,6 +21,10 @@ export class EventsListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  handleEventClicked(data: any){
+    console.log(data)
   }
 
 }
