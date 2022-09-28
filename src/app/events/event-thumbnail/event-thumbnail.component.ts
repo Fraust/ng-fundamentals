@@ -9,6 +9,7 @@ export class EventThumbnailComponent implements OnInit {
 
   @Input() event : any
   @Output() eventClick = new EventEmitter()
+  someProperty :any = "Some value"
   constructor() { }
 
   ngOnInit(): void {
@@ -16,6 +17,10 @@ export class EventThumbnailComponent implements OnInit {
   
   handleClickMe(){
     this.eventClick.emit(this.event.name)
+  }
+
+  logfoo(){
+    console.log("logfoo")
   }
 
 }
