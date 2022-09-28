@@ -9,6 +9,8 @@ export class EventThumbnailComponent implements OnInit {
 
   @Input() event : any
   @Output() eventClick = new EventEmitter()
+
+  showprice : boolean = true
   someProperty :any = "Some value"
   constructor() { }
 
@@ -21,6 +23,20 @@ export class EventThumbnailComponent implements OnInit {
 
   logfoo(){
     console.log("logfoo")
+  }
+
+  hide(){
+    this.showprice = !this.showprice;
+  }
+
+  getStartTimeClass(){
+    if(this.event?.time === '8:00 am'){
+      return 'green';
+    }
+    if(this.event?.time === '10:00 am'){
+      return 'red';
+    }
+    return '';
   }
 
 }

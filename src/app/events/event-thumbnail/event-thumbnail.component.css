@@ -1,7 +1,19 @@
 .pad-left {
-    margin-left: 10px;
+    margin-left: 2px;
 }
 
-.well div{
-    color:red;
+.thumbnail {
+    min-height: 210px;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+.bold {
+    font-weight: bold;
 }
