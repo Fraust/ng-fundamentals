@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { IEvent } from '../shared/event.model';
 
 @Component({
   selector: 'app-event-thumbnail',
@@ -7,18 +8,20 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class EventThumbnailComponent implements OnInit {
 
-  @Input() event : any
+  @Input() event : IEvent | undefined
   @Output() eventClick = new EventEmitter()
 
   showprice : boolean = true
   someProperty :any = "Some value"
-  constructor() { }
+  constructor() { 
+    
+  }
 
   ngOnInit(): void {
   }
   
   handleClickMe(){
-    this.eventClick.emit(this.event.name)
+    this.eventClick.emit(this.event?.name)
   }
 
   logfoo(){
