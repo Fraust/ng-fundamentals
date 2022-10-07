@@ -14,6 +14,17 @@ export class EventService {
     // ! permet de spécifier qu'il y aura forcément un retour
     return EVENTS.find(event => event.id === id)!;
   }
+
+  saveEvent(formValues : any){
+    formValues.id = 999;
+    formValues.session = [];
+    EVENTS.push(formValues);
+  }
+
+  updateEvent(event : IEvent){
+    let index = EVENTS.findIndex(x => x.id = event.id);
+    EVENTS[index] = event;
+  }
 }
 const EVENTS : IEvent[] = [
   {
