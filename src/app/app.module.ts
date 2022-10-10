@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
 import { E404Component } from './errors/e404/e404.component';
 import { EventRouterActivator } from './events/event-details/event-details/event-route-activator.service';
 import { EventListResolver } from './events/events-list/events-list-resolver.service';
-import { EventsListComponent, EventThumbnailComponent, CreateEventComponent } from './events/index';
+import { EventsListComponent, EventThumbnailComponent, CreateEventComponent, DurationPipe } from './events/index';
 import { AuthService } from './user/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateSessionComponent } from './events/event-details/create-session/create-session.component';
@@ -35,7 +35,7 @@ import { CollapsibleWellComponent } from './common/collapsible-well/collapsible-
     CreateSessionComponent,
     SessionListComponent,
     CollapsibleWellComponent,
-
+    DurationPipe
   ],
   providers : [EventService, 
     ToastrService, 
