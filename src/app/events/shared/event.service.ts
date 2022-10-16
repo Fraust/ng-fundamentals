@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core'
+import { EventEmitter, Injectable } from '@angular/core'
 import { Subject, Observable } from 'rxjs';
-import { IEvent } from './event.model';
+import { IEvent, ISession } from './event.model';
 
 @Injectable()
 export class EventService {
@@ -24,6 +24,28 @@ export class EventService {
   updateEvent(event : IEvent){
     let index = EVENTS.findIndex(x => x.id = event.id);
     EVENTS[index] = event;
+  }
+
+  searchSessions(searchTerm : string){
+    var term = searchTerm.toLocaleLowerCase();
+    var results : ISession[] = [];
+
+    EVENTS.forEach(event => {
+      var matchingSessions = event.sessions.filter(s => s.name.toLocaleLowerCase().indexOf(term) > -1);
+      matchingSessions = matchingSessions.map((session:ISession) => {
+        session.eventId = event.id;
+        return session;
+      })
+      results = results.concat(matchingSessions);
+    })
+    
+    var emitter = new EventEmitter(true);
+    
+    //simule le http
+    setTimeout(() => {
+      emitter.emit(results);
+    }, 100);
+    return emitter;
   }
 }
 const EVENTS : IEvent[] = [
@@ -51,6 +73,7 @@ const EVENTS : IEvent[] = [
               them for you. Given by the famous PBD, president of Angular 
               University (formerly Oxford University)`,
         voters: ['bradgreen', 'igorminar', 'martinfowler'],
+        eventId : 1,
       },
       {
         id: 2,
@@ -63,6 +86,7 @@ const EVENTS : IEvent[] = [
               overworking them. In this session I'll show you how to get the 
               best results from the talent you already have on staff.`,
         voters: ['johnpapa', 'bradgreen', 'igorminar', 'martinfowler'],
+        eventId : 1,
       },
       {
         id: 3,
@@ -76,6 +100,7 @@ const EVENTS : IEvent[] = [
               new predictive algorithms and thought reading software 
               built into Angular 4.`,
         voters: [],
+        eventId : 1,
       },
       {
         id: 4,
@@ -90,6 +115,7 @@ const EVENTS : IEvent[] = [
               look at what it might do, and how to convince your manager to 
               hold off on any new apps until it's released`,
         voters: [],
+        eventId : 1,
       },
       {
         id: 5,
@@ -102,6 +128,7 @@ const EVENTS : IEvent[] = [
               get started with it today and be building UI's for your self 
               driving cars and butler-bots in no time.`,
         voters: ['bradgreen', 'igorminar'],
+        eventId : 1,
       },
     ],
   },
@@ -129,6 +156,7 @@ const EVENTS : IEvent[] = [
               will be convincing your manager that testing is a good idea, and using the new
               protractor tool for end to end testing.`,
         voters: ['bradgreen', 'igorminar'],
+        eventId : 2,
       },
       {
         id: 2,
@@ -139,6 +167,7 @@ const EVENTS : IEvent[] = [
         abstract: `In this workshop, David East will show you how to use Angular with the new
               ultra-real-time 5D Firebase back end, hosting platform, and wine recommendation engine.`,
         voters: ['bradgreen', 'igorminar', 'johnpapa'],
+        eventId : 2,
       },
       {
         id: 3,
@@ -150,6 +179,7 @@ const EVENTS : IEvent[] = [
               a lot easier to read and understand then you may think. Patrick Stapleton will talk
               about his secretes for keeping up with the changes, and navigating around the code.`,
         voters: ['martinfowler'],
+        eventId : 2,
       },
       {
         id: 4,
@@ -162,6 +192,7 @@ const EVENTS : IEvent[] = [
               of the United States through his amazing programming skills, 
               showing how you too can be success with just attitude.`,
         voters: ['bradgreen'],
+        eventId : 2,
       },
     ],
   },
@@ -189,6 +220,7 @@ const EVENTS : IEvent[] = [
               into the internals of Angular 4, we'll see exactly how Elm powers
               the framework, and what you can do to take advantage of this knowledge.`,
         voters: ['bradgreen', 'martinfowler', 'igorminar'],
+        eventId : 3,
       },
       {
         id: 2,
@@ -199,6 +231,7 @@ const EVENTS : IEvent[] = [
         abstract: `React v449.6 has just been released. Let's see how to use 
               this new version with Angular to create even more impressive applications.`,
         voters: ['bradgreen', 'martinfowler'],
+        eventId : 3,
       },
       {
         id: 3,
@@ -211,6 +244,7 @@ const EVENTS : IEvent[] = [
               at how farmers use Redux when harvesting grain as a great introduction to 
               this game changing technology.`,
         voters: ['bradgreen', 'martinfowler', 'johnpapa'],
+        eventId : 3,
       },
       {
         id: 4,
@@ -221,6 +255,7 @@ const EVENTS : IEvent[] = [
         abstract: `Let's take a look at some of the stranger pieces of Angular 4,
               including neural net nets, Android in Androids, and using pipes with actual pipes.`,
         voters: ['bradgreen', 'martinfowler', 'igorminar', 'johnpapa'],
+        eventId : 3,
       },
       {
         id: 5,
@@ -233,6 +268,7 @@ const EVENTS : IEvent[] = [
               how to pick out the right clothes to make your coworkers and boss not only
               respect you, but also want to be your buddy.`,
         voters: ['bradgreen', 'martinfowler'],
+        eventId : 3,
       },
       {
         id: 6,
@@ -244,6 +280,7 @@ const EVENTS : IEvent[] = [
               to use directives in your Angular 4 development while drawing lessons from the new movie,
               featuring all your favorite characters like Han Solo's ghost and Darth Jar Jar.`,
         voters: ['bradgreen', 'martinfowler'],
+        eventId : 3,
       },
     ],
   },
@@ -271,6 +308,7 @@ const EVENTS : IEvent[] = [
               these well-designed coworkers to really feel at home coding alongside us. This talk will
               look at things we can do to recognize our biases and counteract them.`,
         voters: ['bradgreen', 'igorminar'],
+        eventId : 4,
       },
       {
         id: 2,
@@ -282,6 +320,7 @@ const EVENTS : IEvent[] = [
               happened in the last decade, but there is still much we can do to remove all
               war from the world, and Angular will be a key part of that effort.`,
         voters: ['bradgreen', 'igorminar', 'johnpapa'],
+        eventId : 4,
       },
       {
         id: 3,
@@ -293,6 +332,7 @@ const EVENTS : IEvent[] = [
               the latest Destiny DLC, but we can still improve the massages they give and the handmade
               brie they make using Angular 4. This session will show you how.`,
         voters: ['igorminar', 'johnpapa'],
+        eventId : 4,
       },
     ],
   },
@@ -321,6 +361,7 @@ const EVENTS : IEvent[] = [
               of voting machines? This talk will look at how all presidential elections
               are now determined by Angular code.`,
         voters: ['bradgreen', 'igorminar'],
+        eventId : 5,
       },
       {
         id: 2,
@@ -332,6 +373,7 @@ const EVENTS : IEvent[] = [
               Dan Wahlin will show you how you can get started with Angular in 60ish minutes, 
               guaranteed!`,
         voters: ['bradgreen', 'igorminar', 'johnpapa'],
+        eventId : 5,
       },
     ],
   },
